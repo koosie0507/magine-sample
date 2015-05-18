@@ -1,2 +1,3 @@
-# magine-sample
-Sample for accessing the magine.com public API.
+#Purpose
+Provide a sample implementation which displays Magine program information using  Magine's public API.
+
