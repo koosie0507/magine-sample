@@ -14,11 +14,16 @@ namespace Magine.ProgramInformationSample.Core
 {
     public sealed class MagineApi : IMagineApi
     {
-        private const string AiringsUrl = "https://magine.com/api/content/v2/timeline/airings";
-
         private string authToken;
 
         private readonly LoginHandler loginHandler = new LoginHandler();
+
+        private readonly AiringsHandler airingsHandler;
+
+        public MagineApi()
+        {
+            airingsHandler = new AiringsHandler(this);
+        }
 
         public async Task Login(string userName, string password)
         {
@@ -40,32 +45,17 @@ namespace Magine.ProgramInformationSample.Core
             return client;
         }
 
-        private HttpRequestMessage GetAiringsRequestMessage(Uri uri)
+        internal HttpRequestMessage GetAiringsRequestMessage(Uri uri)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, uri);
             request.Headers.Add("Authorization", string.Format("Bearer {0}", authToken));
             return request;
         }
 
-        private Uri GetAiringsUri(DateTime from, DateTime to)
-        {
-            var uriBuilder = new UriBuilder(AiringsUrl);
-            var queryBuilder = new StringBuilder();
-            queryBuilder.AppendFormat("from={0:yyyyMMddTHHmmssZ}", from.Date.ToUniversalTime());
-            queryBuilder.AppendFormat("&to={0:yyyyMMddTHHmmssZ}", to.Date.ToUniversalTime());
-            uriBuilder.Query = queryBuilder.ToString();
-            return uriBuilder.Uri;
-        }
-
-        private Task<HttpResponseMessage> PerformGetAirings(HttpMessageInvoker client, DateTime from, DateTime to)
-        {
-            return client.SendAsync(GetAiringsRequestMessage(GetAiringsUri(from, to)), new CancellationToken());
-        }
-
         public async Task<IEnumerable<Airing>> GetAirings(DateTime from, DateTime to)
         {
-            DataContractJsonSerializer serializer = NewAiringsSerializer();
-            using (HttpResponseMessage message = await PerformGetAirings(NewClient(), from, to))
+            DataContractJsonSerializer serializer = AiringsHandler.NewAiringsSerializer();
+            using (HttpResponseMessage message = await airingsHandler.PerformGetAirings(NewClient(), from, to))
             {
                 using (Stream jsonStream = await message.Content.ReadAsStreamAsync())
                 {
@@ -74,17 +64,6 @@ namespace Magine.ProgramInformationSample.Core
                     return airingsPerChannel.Values.SelectMany(x => x);
                 }
             }
-        }
-
-        private static DataContractJsonSerializer NewAiringsSerializer()
-        {
-            return new DataContractJsonSerializer(
-                typeof(Dictionary<string, Airing[]>),
-                new DataContractJsonSerializerSettings
-                    {
-                        UseSimpleDictionaryFormat = true,
-                        KnownTypes = new[] { typeof(Airing) }
-                    });
         }
     }
 }
