@@ -5,7 +5,7 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Magine.ProgramInformationSample.Core
+namespace Magine.ProgramInformationSample.Core.ViewModel
 {
     public class LoginViewModel
     {

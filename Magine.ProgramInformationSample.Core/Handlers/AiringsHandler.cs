@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
+using Magine.ProgramInformationSample.Core.Model;
+
 namespace Magine.ProgramInformationSample.Core.Handlers
 {
     public sealed class AiringsHandler : Handler<IEnumerable<Airing>>

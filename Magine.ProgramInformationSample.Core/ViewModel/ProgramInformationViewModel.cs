@@ -1,4 +1,4 @@
-namespace Magine.ProgramInformationSample.Core
+namespace Magine.ProgramInformationSample.Core.ViewModel
 {
     public class ProgramInformationViewModel
     {

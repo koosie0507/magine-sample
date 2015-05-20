@@ -3,6 +3,8 @@ using System.Collections;
 using System.Linq;
 using System.Net;
 
+using Magine.ProgramInformationSample.Core.ViewModel;
+
 using Moq;
 
 using NUnit.Framework;

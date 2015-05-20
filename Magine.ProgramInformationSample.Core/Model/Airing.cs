@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Magine.ProgramInformationSample.Core
+namespace Magine.ProgramInformationSample.Core.Model
 {
     [DataContract]
     public struct Airing
