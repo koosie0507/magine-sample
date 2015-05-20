@@ -13,8 +13,8 @@ using NUnit.Framework;
 
 namespace Magine.ProgramInformationSample.Core.Tests
 {
-    [TestFixture]
-    public class BrowseApi
+    [TestFixture, Ignore]
+    public class MagineApiTests
     {
          [Test]
         public void Login_WithCorrectParams_IsSuccessful()

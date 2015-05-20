@@ -44,14 +44,17 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="BrowseApi.cs" />
+    <Compile Include="MagineApiTests.cs" />
     <Compile Include="Features\Login.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Login.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Steps\LoginSteps.cs" />
+    <Compile Include="Handlers\AiringsHandlerTests.cs" />
+    <Compile Include="Handlers\LoginHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestUtil\HttpMessageInvokerMockFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
