@@ -38,6 +38,7 @@
     <Compile Include="AiringsHandler.cs" />
     <Compile Include="IMagineApi.cs" />
     <Compile Include="IRouter.cs" />
+    <Compile Include="LoginHandler.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="MagineApi.cs" />
     <Compile Include="ProgramInformationViewModel.cs" />

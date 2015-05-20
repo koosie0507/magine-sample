@@ -14,24 +14,18 @@ namespace Magine.ProgramInformationSample.Core
 {
     public sealed class MagineApi : IMagineApi
     {
-        private const string LoginUrl = "https://magine.com/api/login/v1/auth/magine";
-
         private const string AiringsUrl = "https://magine.com/api/content/v2/timeline/airings";
 
         private string authToken;
 
+        private readonly LoginHandler loginHandler = new LoginHandler();
+
         public async Task Login(string userName, string password)
         {
-            using (HttpResponseMessage message = await PerformLoginRequest(NewClient()))
+            using (HttpResponseMessage message = await loginHandler.PerformLoginRequest(NewClient()))
             {
-                authToken = GetAuthToken(message);
+                authToken = loginHandler.GetAuthToken(message);
             }
-        }
-
-        private Task<HttpResponseMessage> PerformLoginRequest(HttpClient httpClient)
-        {
-            string json = "{\"identity\":\"maginemobdevtest@magine.com\", \"accessKey\":\"magine\"}";
-            return httpClient.PostAsync(LoginUrl, new StringContent(json));
         }
 
         private HttpClient NewClient()
@@ -44,12 +38,6 @@ namespace Magine.ProgramInformationSample.Core
             var client = new HttpClient(handler, true);
             client.DefaultRequestHeaders.Add("User-Agent", "X-Magine-ProgramInfoSample");
             return client;
-        }
-
-        private string GetAuthToken(HttpResponseMessage responseMessage)
-        {
-            var deserializer = new DataContractJsonSerializer(typeof(LoginResponse));
-            using (Stream s = responseMessage.Content.ReadAsStreamAsync().Result) return ((LoginResponse)deserializer.ReadObject(s)).SessionId;
         }
 
         private HttpRequestMessage GetAiringsRequestMessage(Uri uri)
@@ -97,13 +85,6 @@ namespace Magine.ProgramInformationSample.Core
                         UseSimpleDictionaryFormat = true,
                         KnownTypes = new[] { typeof(Airing) }
                     });
-        }
-
-        [DataContract]
-        internal class LoginResponse
-        {
-            [DataMember(Name = "sessionId")]
-            internal string SessionId;
         }
     }
 }
