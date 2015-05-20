@@ -15,7 +15,7 @@ using NUnit.Framework;
 
 namespace Magine.ProgramInformationSample.Core.Tests
 {
-    [TestFixture, Ignore]
+    [TestFixture]
     public class MagineApiTests
     {
          [Test]
