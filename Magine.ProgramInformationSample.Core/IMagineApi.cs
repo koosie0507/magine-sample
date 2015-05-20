@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace Magine.ProgramInformationSample.Core
 {
     public interface IMagineApi
     {
-        void Login(string isAny, string s);
+        Task Login(string userName, string password);
     }
 }

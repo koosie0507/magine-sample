@@ -3,6 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Net;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Magine.ProgramInformationSample.Core
 {
@@ -44,13 +45,13 @@ namespace Magine.ProgramInformationSample.Core
             return true;
         }
 
-        public void Login(NetworkCredential credentials)
+        public async Task Login(NetworkCredential credentials)
         {
             if (!ValidateCredentials(credentials)) return;
 
             try
             {
-                magineApi.Login(credentials.UserName, credentials.Password);
+                await magineApi.Login(credentials.UserName, credentials.Password);
                 router.GoTo<ProgramInformationViewModel>();
             }
             catch (Exception)

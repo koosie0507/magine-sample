@@ -34,9 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Airing.cs" />
+    <Compile Include="AiringsHandler.cs" />
     <Compile Include="IMagineApi.cs" />
     <Compile Include="IRouter.cs" />
     <Compile Include="LoginViewModel.cs" />
+    <Compile Include="MagineApi.cs" />
     <Compile Include="ProgramInformationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
