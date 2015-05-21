@@ -12,7 +12,7 @@ namespace Magine.ProgramInformationSample.Core.Handlers
 {
     public sealed class AiringsHandler : Handler<IEnumerable<Airing>>
     {
-        private const string AiringsUrl = "https://magine.com/api/content/v2/timeline/airings";
+        private const string AiringsUrlFormat = "https://magine.com/api/content/v2/timeline/airings?from={0:yyyyMMddTHHmmssZ}&to={1:yyyyMMddTHHmmssZ}";
 
         private readonly string authToken;
 
@@ -31,12 +31,7 @@ namespace Magine.ProgramInformationSample.Core.Handlers
 
         private Uri GetAiringsUri()
         {
-            var uriBuilder = new UriBuilder(AiringsUrl);
-            var queryBuilder = new StringBuilder();
-            queryBuilder.AppendFormat("from={0:yyyyMMddTHHmmssZ}", @from.Date.ToUniversalTime());
-            queryBuilder.AppendFormat("&to={0:yyyyMMddTHHmmssZ}", to.Date.ToUniversalTime());
-            uriBuilder.Query = queryBuilder.ToString();
-            return uriBuilder.Uri;
+            return new Uri(String.Format(AiringsUrlFormat, @from.Date.ToUniversalTime(), to.Date.ToUniversalTime()));
         }
 
         private static DataContractJsonSerializer NewAiringsSerializer()
@@ -62,8 +57,7 @@ namespace Magine.ProgramInformationSample.Core.Handlers
             DataContractJsonSerializer serializer = NewAiringsSerializer();
             using (Stream jsonStream = content.ReadAsStreamAsync().Result)
             {
-                Dictionary<string, Airing[]> airingsPerChannel =
-                    (Dictionary<string, Airing[]>)serializer.ReadObject(jsonStream);
+                var airingsPerChannel = (Dictionary<string, Airing[]>)serializer.ReadObject(jsonStream);
                 return airingsPerChannel.Values.SelectMany(x => x);
             }
         }

@@ -11,14 +11,19 @@ namespace Magine.ProgramInformationSample.Core
 {
     public sealed class MagineApi : IMagineApi
     {
+        private readonly HttpMessageInvoker httpMessageInvoker;
+
         private string authToken;
 
-        public async Task Login(string userName, string password)
+        public MagineApi() : this(NewClient()) { }
+
+        public MagineApi(HttpMessageInvoker httpMessageInvoker)
         {
-            authToken = await new LoginHandler(NewClient(), userName, password).InvokeAsync();
+            if(httpMessageInvoker == null) throw new ArgumentNullException();
+            this.httpMessageInvoker = httpMessageInvoker;
         }
 
-        private HttpClient NewClient()
+        private static HttpClient NewClient()
         {
             var handler = new HttpClientHandler();
             if (handler.SupportsAutomaticDecompression)
@@ -30,9 +35,14 @@ namespace Magine.ProgramInformationSample.Core
             return client;
         }
 
+        public async Task Login(string userName, string password)
+        {
+            authToken = await new LoginHandler(httpMessageInvoker, userName, password).InvokeAsync();
+        }
+
         public async Task<IEnumerable<Airing>> GetAirings(DateTime from, DateTime to)
         {
-            return await new AiringsHandler(NewClient(), authToken, from, to).InvokeAsync();
+            return await new AiringsHandler(httpMessageInvoker, authToken, from, to).InvokeAsync();
         }
     }
 }
