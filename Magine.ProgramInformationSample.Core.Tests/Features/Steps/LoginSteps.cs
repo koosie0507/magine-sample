@@ -93,6 +93,7 @@ namespace Magine.ProgramInformationSample.Core.Tests.Features.Steps
         public void ThenIWillBeLoggedIn()
         {
             Assert.IsFalse(viewModel.ErrorInfo.HasErrors);
+            Assert.That(viewModel.ErrorInfo.GetErrors("LoginError"), Is.Empty);
             Mock<IRouter> routerMock = ScenarioContext.Current.Get<Mock<IRouter>>(RouterKey);
             routerMock.Verify(x => x.GoTo<ProgramInformationViewModel>(), Times.Once);
         }
