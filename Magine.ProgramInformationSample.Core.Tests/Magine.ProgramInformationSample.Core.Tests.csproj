@@ -44,6 +44,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Features\LoadAirings.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoadAirings.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Steps\LoadAiringsSteps.cs" />
     <Compile Include="MagineApiTests.cs" />
     <Compile Include="Features\Login.feature.cs">
       <AutoGen>True</AutoGen>
@@ -62,6 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\LoadAirings.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>LoadAirings.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Login.feature.cs</LastGenOutput>

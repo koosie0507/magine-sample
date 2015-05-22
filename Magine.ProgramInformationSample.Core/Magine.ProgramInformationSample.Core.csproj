@@ -42,6 +42,7 @@
     <Compile Include="MagineApi.cs" />
     <Compile Include="Model\Airing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AiringViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\ProgramInformationViewModel.cs" />
   </ItemGroup>
