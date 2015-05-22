@@ -115,7 +115,7 @@ namespace Magine.ProgramInformationSample.Core.Tests
 
             Assert.That(expectedRequest, new ValidRequestConstraint(
                 HttpMethod.Get,
-                new Uri("https://magine.com/api/content/v2/timeline/airings?from=20140504T210000Z&to=20140505T210000Z"),
+                new Uri("https://magine.com/api/content/v2/timeline/airings?from=20140505T000000Z&to=20140506T000000Z"),
                 null,
                 "Bearer a"));
         }

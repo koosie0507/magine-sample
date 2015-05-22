@@ -30,7 +30,7 @@ namespace Magine.ProgramInformationSample.Core.Handlers
 
         private Uri GetAiringsUri()
         {
-            return new Uri(String.Format(AiringsUrlFormat, @from.Date.ToUniversalTime(), to.Date.ToUniversalTime()));
+            return new Uri(String.Format(AiringsUrlFormat, @from.Date, to.Date));
         }
 
         protected override HttpRequestMessage NewRequest()
