@@ -68,9 +68,10 @@ namespace Magine.ProgramInformationSample.Core.ViewModel
             {
                 set
                 {
+                    if (Equals(loginError, value)) return;
                     loginError = value;
-                    OnErrorsChanged();
                     HasErrors = !string.IsNullOrWhiteSpace(value);
+                    OnErrorsChanged();
                 }
             }
 
