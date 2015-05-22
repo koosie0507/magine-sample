@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace Magine.ProgramInformationSample.Core.Model
 {
@@ -12,9 +13,9 @@ namespace Magine.ProgramInformationSample.Core.Model
         [DataMember(Name = "image")]
         public string ImageUrl { get; set; }
         [DataMember(Name = "start")]
-        public string Start { get; set; }
+        public DateTime Start { get; set; }
         [DataMember(Name = "stop")]
-        public string Stop { get; set; }
+        public DateTime Stop { get; set; }
         [DataMember(Name = "title")]
         public string Title { get; set; }
     }

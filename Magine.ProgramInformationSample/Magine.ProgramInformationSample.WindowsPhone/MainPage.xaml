@@ -2,13 +2,46 @@
     x:Class="Magine.ProgramInformationSample.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Magine.ProgramInformationSample"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid>
-
-    </Grid>
+    <Page.Resources>
+        <ItemsPanelTemplate x:Key="ListPanel">
+            <ItemsStackPanel CacheLength="3" ItemsUpdatingScrollMode="KeepItemsInView" />
+        </ItemsPanelTemplate>
+        <DataTemplate x:Key="AiringItemTemplate">
+            <Grid Margin="8" Height="96">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Grid.RowSpan="2" Source="{Binding ImageUri, Mode=OneTime}"
+                       Stretch="UniformToFill"
+                       Margin="0,0,14,0"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Title}"
+                           Style="{ThemeResource ListViewItemSubheaderTextBlockStyle}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Schedule}" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <Hub>
+        <Hub.Header>
+            <TextBlock x:Uid="AiringsHeader" Margin="32" />
+        </Hub.Header>
+        <HubSection>
+            <DataTemplate>
+                <ListView ItemTemplate="{StaticResource AiringItemTemplate}"
+                          ItemsPanel="{StaticResource ListPanel}"
+                          ItemsSource="{Binding Airings, Mode=OneTime}"
+                          SelectionMode="None"
+                          IsSwipeEnabled="False"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollMode="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto" />
+            </DataTemplate>
+        </HubSection>
+    </Hub>
 </Page>

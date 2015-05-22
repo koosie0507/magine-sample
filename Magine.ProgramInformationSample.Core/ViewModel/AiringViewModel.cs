@@ -10,10 +10,13 @@ namespace Magine.ProgramInformationSample.Core.ViewModel
         {
             ImageUri = model.ImageUrl;
             Title = model.Title;
+            Schedule = string.Format("{0:D}, {0:t} - {1:t}", model.Start, model.Stop);
         }
 
         public string Title { get; private set; }
 
         public string ImageUri { get; private set; }
+
+        public string Schedule { get; private set; }
     }
 }
