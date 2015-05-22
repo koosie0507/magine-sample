@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.Serialization.Json;
-using System.Text;
 
 using Magine.ProgramInformationSample.Core.Model;
+
+using Newtonsoft.Json;
 
 namespace Magine.ProgramInformationSample.Core.Handlers
 {
@@ -34,17 +33,6 @@ namespace Magine.ProgramInformationSample.Core.Handlers
             return new Uri(String.Format(AiringsUrlFormat, @from.Date.ToUniversalTime(), to.Date.ToUniversalTime()));
         }
 
-        private static DataContractJsonSerializer NewAiringsSerializer()
-        {
-            return new DataContractJsonSerializer(
-                typeof(Dictionary<string, Airing[]>),
-                new DataContractJsonSerializerSettings
-                    {
-                        UseSimpleDictionaryFormat = true,
-                        KnownTypes = new[] { typeof(Airing) }
-                    });
-        }
-
         protected override HttpRequestMessage NewRequest()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, GetAiringsUri());
@@ -54,12 +42,9 @@ namespace Magine.ProgramInformationSample.Core.Handlers
 
         protected override IEnumerable<Airing> TransformContent(HttpContent content)
         {
-            DataContractJsonSerializer serializer = NewAiringsSerializer();
-            using (Stream jsonStream = content.ReadAsStreamAsync().Result)
-            {
-                var airingsPerChannel = (Dictionary<string, Airing[]>)serializer.ReadObject(jsonStream);
-                return airingsPerChannel.Values.SelectMany(x => x);
-            }
+            string json = content.ReadAsStringAsync().Result;
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, Airing[]>>(json);
+            return dict.SelectMany(x => x.Value);
         }
     }
 }
