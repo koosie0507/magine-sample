@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Magine.ProgramInformationSample.Core.ViewModel;
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Magine.ProgramInformationSample
@@ -24,7 +26,28 @@ namespace Magine.ProgramInformationSample
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter == null || (!(e.Parameter is ProgramInformationViewModel)))
+            {
+                return;
+            }
+
+            var viewModel = (ProgramInformationViewModel)e.Parameter;
+            DataContext = viewModel;
+            try
+            {
+                ProgressRing.IsActive = true;
+                await viewModel.LoadAiringsAsync();
+            }
+            finally
+            {
+                ProgressRing.IsActive = false;
+            }
         }
     }
 }

@@ -35,18 +35,19 @@ namespace Magine.ProgramInformationSample
         /// </summary>
         public App()
         {
+            var client = new MagineApi();
             viewModelViewDictionary = new Dictionary<Type, ViewInfo>
                                           {
                                               {   typeof(LoginViewModel), new ViewInfo
                                                   {
-                                                      ViewModelFactory = () => new LoginViewModel(new MagineApi(), this),
+                                                      ViewModelFactory = () => new LoginViewModel(client, this),
                                                       ViewType = typeof(LoginPage)
                                                   }
                                               },
                                               {
                                                   typeof(ProgramInformationViewModel), new ViewInfo
                                                   {
-                                                      ViewModelFactory = () => new ProgramInformationViewModel(),
+                                                      ViewModelFactory = () => new ProgramInformationViewModel(client, this),
                                                       ViewType = typeof(MainPage)
                                                   }
                                               }

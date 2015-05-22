@@ -117,6 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AiringsHeader.Text" xml:space="preserve">
+    <value>Airing
+sometime
+soon</value>
+  </data>
   <data name="EmailLabel.Text" xml:space="preserve">
     <value>E-mail</value>
   </data>

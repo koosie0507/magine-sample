@@ -64,7 +64,15 @@ namespace Magine.ProgramInformationSample
             string password = PasswordTextBox.Password;
             EmailTextBox.ClearValue(TextBox.TextProperty);
             PasswordTextBox.ClearValue(PasswordBox.PasswordProperty);
-            await viewModel.Login(new NetworkCredential(userName, password));
+            try
+            {
+                ProgressBar.Visibility = Visibility.Visible;
+                await viewModel.Login(new NetworkCredential(userName, password));
+            }
+            finally
+            {
+                ProgressBar.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

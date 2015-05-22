@@ -1,13 +1,38 @@
 ﻿<Page
     x:Class="Magine.ProgramInformationSample.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Magine.ProgramInformationSample"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Page.Resources>
+        <DataTemplate x:Key="AiringItemTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="{Binding ImageUri, Mode=OneTime}" Stretch="Fill" />
+                <TextBlock Grid.Row="1" Text="{Binding Title}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="HeaderTemplate">
+            <TextBlock x:Uid="AiringsHeader" Margin="32" Style="{ThemeResource HeaderTextBlockStyle}" />
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="GridViewPanel">
+            <ItemsWrapGrid CacheLength="3" ItemWidth="128" ItemHeight="128" />
+        </ItemsPanelTemplate>
+    </Page.Resources>
+    <Grid>
+        <ProgressRing x:Name="ProgressRing" Width="128" Height="128"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center" />
+        <GridView HeaderTemplate="{StaticResource HeaderTemplate}"
+                  ItemTemplate="{StaticResource AiringItemTemplate}"
+                  ItemsPanel="{StaticResource GridViewPanel}"
+                  ItemsSource="{Binding Airings, Mode=OneTime}"
+                  SelectionMode="None"
+                  IsSwipeEnabled="False"
+                  ScrollViewer.HorizontalScrollMode="Auto"
+                  ScrollViewer.VerticalScrollMode="Disabled"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled" />
     </Grid>
 </Page>
