@@ -3,9 +3,11 @@ using System.Linq;
 using System.Net;
 
 using Windows.Data.Xml.Dom;
+using Windows.System;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 using Magine.ProgramInformationSample.Core.ViewModel;
@@ -73,6 +75,19 @@ namespace Magine.ProgramInformationSample
             {
                 ProgressBar.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void OnUserNameKeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key != VirtualKey.Enter || e.KeyStatus.RepeatCount > 1) return;
+
+            PasswordTextBox.Focus(FocusState.Keyboard);
+        }
+
+        private void OnPasswordKeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key != VirtualKey.Enter || e.KeyStatus.RepeatCount > 1) return;
+            OnLoginButtonClicked(sender, e);
         }
     }
 }

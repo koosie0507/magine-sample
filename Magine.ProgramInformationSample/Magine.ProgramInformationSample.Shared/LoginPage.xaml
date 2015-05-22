@@ -23,12 +23,13 @@
             <TextBlock x:Uid="EmailLabel" Grid.Column="0" Text="" Grid.Row="1" Margin="24,8,4,8"
                        Style="{ThemeResource BodyTextBlockStyle}" />
             <TextBox x:Name="EmailTextBox" Grid.Column="1" Grid.Row="1" Margin="0,8,16,8"
-                     Text="maginemobdevtest@magine.com"
+                     KeyUp="OnUserNameKeyUp"
+                     PlaceholderText="maginemobdevtest@magine.com"
                      InputScope="EmailSmtpAddress"/>
             <TextBlock x:Uid="PasswordLabel" Grid.Column="0" Text="" Grid.Row="2" Margin="24,8,4,8"
                        Style="{ThemeResource BodyTextBlockStyle}" />
             <PasswordBox x:Name="PasswordTextBox" Grid.Column="1" Grid.Row="2" Margin="0,8,16,8"
-                         Password="magine"/>
+                         KeyUp="OnPasswordKeyUp" />
             <Button x:Uid="LoginButton" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"
                     Click="OnLoginButtonClicked"
                     Content=""
